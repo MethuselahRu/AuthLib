@@ -81,6 +81,13 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<repositoryId>${project.distributionManagement.repository.id}</repositoryId>
+					<url>${project.distributionManagement.repository.url}</url>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>${project.artifactId}</artifactId>
+					<version>${project.version}</version>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
