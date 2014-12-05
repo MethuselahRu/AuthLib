@@ -74,7 +74,7 @@
 		<repository>
 			<id>methuselah-public</id>
 			<name>Methuselah Public</name>
-			<url>https://nexus.methuselah.ru/content/repositories/public/</url>
+			<url>https://nexus.methuselah.ru/content/repositories/methuselah-public/</url>
 		</repository>
 	</distributionManagement>
 </project>
