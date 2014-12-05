@@ -96,7 +96,7 @@
 		<repository>
 			<id>methuselah-public</id>
 			<name>Methuselah Public</name>
-			<url>https://nexus.methuselah.ru/content/repositories/methuselah-public/</url>
+			<url>http://localhost:18088/content/repositories/methuselah-public/</url>
 		</repository>
 	</distributionManagement>
 </project>
