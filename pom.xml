@@ -2,19 +2,36 @@
 			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- Описание проекта -->
 	<name>ru.methuselah.authlib</name>
 	<groupId>ru.methuselah</groupId>
 	<artifactId>authlib</artifactId>
 	<version>0.11a</version>
 	<packaging>jar</packaging>
 
+	<!-- Свойства -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<!-- Источники зависимостей -->
+	<repositories>
+	</repositories>
+	
+	<!-- Зависимости проекта -->
+	<dependencies>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+	</dependencies>
 
+	<!-- Шаги сборки -->
 	<build>
 		<finalName>${project.artifactId}_v${project.version}</finalName>
 		<plugins>
+			<!-- Компиляция -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -27,6 +44,7 @@
 					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
+			<!-- Упаковка -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -41,13 +59,22 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!-- Создание документации -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.3</version>
-		</dependency>
-	</dependencies>
+	
+	<distributionManagement>
+		<repository>
+			<id>methuselah-public</id>
+			<name>Methuselah Public</name>
+			<url>https://nexus.methuselah.ru/content/repositories/public/</url>
+		</repository>
+	</distributionManagement>
 </project>
