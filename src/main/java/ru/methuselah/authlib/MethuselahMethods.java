@@ -19,10 +19,10 @@ import ru.methuselah.authlib.data.AuthenticateResponse;
 import ru.methuselah.authlib.data.InvalidatePayload;
 import ru.methuselah.authlib.data.RefreshPayload;
 import ru.methuselah.authlib.data.RefreshResponse;
-import ru.methuselah.authlib.exceptions.ResponseException;
 import ru.methuselah.authlib.data.ErrorResponse;
 import ru.methuselah.authlib.data.SignoutPayload;
 import ru.methuselah.authlib.data.ValidatePayload;
+import ru.methuselah.authlib.exceptions.ResponseException;
 
 public class MethuselahMethods
 {
@@ -37,23 +37,29 @@ public class MethuselahMethods
 	public static final String urlProfileInfo  = urlMethuselah + "profile.php?uuid=";
 	public static final String urlLegacyCheck  = urlMethuselah + "legacy_check.php";
 	public static final String urlLegacyJoin   = urlMethuselah + "legacy_join.php";
-	private static class FakeTrustManager implements X509TrustManager
+	public static AuthenticateResponse authenticate(AuthenticatePayload payload) throws ResponseException
 	{
-		@Override
-		public void checkClientTrusted(X509Certificate[] chain, String authType)
-		{
-		}
-		@Override
-		public void checkServerTrusted(X509Certificate[] chain, String authType)
-		{
-		}
-		@Override
-		public X509Certificate[] getAcceptedIssuers()
-		{
-			return new X509Certificate[0];
-		}
+		return action(urlAuthenticate, payload, AuthenticateResponse.class);
 	}
-	private static final FakeTrustManager[] trustManagers = { new FakeTrustManager(), };
+	public static RefreshResponse refresh(RefreshPayload payload) throws ResponseException
+	{
+		return action(urlRefresh, payload, RefreshResponse.class);
+	}
+	public static boolean validate(ValidatePayload payload) throws ResponseException
+	{
+		action(urlValidate, payload, null);
+		return true;
+	}
+	public static boolean signout(SignoutPayload payload) throws ResponseException
+	{
+		action(urlSignout, payload, null);
+		return true;
+	}
+	public static boolean invalidate(InvalidatePayload payload) throws ResponseException
+	{
+		action(urlInvalidate, payload, null);
+		return true;
+	}
 	protected static <T> T action(String url, Object payload, Class<T> responseClass) throws ResponseException
 	{
 		try
@@ -110,52 +116,21 @@ public class MethuselahMethods
 			throw ex;
 		}
 	}
-	public static AuthenticateResponse authenticate(AuthenticatePayload payload) throws ResponseException
+	private static class FakeTrustManager implements X509TrustManager
 	{
-		try
+		@Override
+		public void checkClientTrusted(X509Certificate[] chain, String authType)
 		{
-			return action(urlAuthenticate, payload, AuthenticateResponse.class);
-		} catch(ResponseException ex) {
-			throw ex;
+		}
+		@Override
+		public void checkServerTrusted(X509Certificate[] chain, String authType)
+		{
+		}
+		@Override
+		public X509Certificate[] getAcceptedIssuers()
+		{
+			return new X509Certificate[0];
 		}
 	}
-	public static RefreshResponse refresh(RefreshPayload payload) throws ResponseException
-	{
-		try
-		{
-			return action(urlRefresh, payload, RefreshResponse.class);
-		} catch(ResponseException ex) {
-			throw ex;
-		}
-	}
-	public static boolean validate(ValidatePayload payload) throws ResponseException
-	{
-		try
-		{
-			action(urlValidate, payload, null);
-			return true;
-		} catch(ResponseException ex) {
-			throw ex;
-		}
-	}
-	public static boolean signout(SignoutPayload payload) throws ResponseException
-	{
-		try
-		{
-			action(urlSignout, payload, null);
-			return true;
-		} catch(ResponseException ex) {
-			throw ex;
-		}
-	}
-	public static boolean invalidate(InvalidatePayload payload) throws ResponseException
-	{
-		try
-		{
-			action(urlInvalidate, payload, null);
-			return true;
-		} catch(ResponseException ex) {
-			throw ex;
-		}
-	}
+	private static final FakeTrustManager[] trustManagers = { new FakeTrustManager(), };
 }

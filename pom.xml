@@ -6,7 +6,7 @@
 	<name>ru.methuselah.authlib</name>
 	<groupId>ru.methuselah</groupId>
 	<artifactId>authlib</artifactId>
-	<version>0.11a</version>
+	<version>0.12a</version>
 	<packaging>jar</packaging>
 
 	<!-- Свойства -->
