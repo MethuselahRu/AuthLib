@@ -3,8 +3,8 @@ import java.util.Formatter;
 
 public class Profile
 {
-	public String id;
-	public String name;
+	public String  id;
+	public String  name;
 	public boolean legacy;
 	public static class ProfileProperty
 	{
@@ -14,9 +14,9 @@ public class Profile
 	}
 	public static class ProfilePropertyTextures
 	{
-		public long timestamp;
-		public String profileId;
-		public String profileName;
+		public long    timestamp;
+		public String  profileId;
+		public String  profileName;
 		public boolean isPublic;
 		public static class ProfileTextures
 		{

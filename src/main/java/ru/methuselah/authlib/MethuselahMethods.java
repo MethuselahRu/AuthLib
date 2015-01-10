@@ -70,7 +70,9 @@ public class MethuselahMethods
 				sslContext.init(null, trustManagers, null);
 				HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 			}
-		} catch(NoSuchAlgorithmException | KeyManagementException | RuntimeException ex) {
+		} catch(NoSuchAlgorithmException ex) {
+		} catch(KeyManagementException ex) {
+		} catch(RuntimeException ex) {
 		}
 		final Gson gson = new Gson();
 		final ErrorResponse rex = new ErrorResponse();
