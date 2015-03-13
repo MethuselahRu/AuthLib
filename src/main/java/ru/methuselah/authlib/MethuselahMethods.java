@@ -26,17 +26,17 @@ import ru.methuselah.authlib.exceptions.ResponseException;
 
 public class MethuselahMethods
 {
-	public static final String urlMethuselah   = "https://auth.methuselah.ru/";
-	public static final String urlAuthenticate = urlMethuselah + "authenticate.php";
-	public static final String urlRefresh      = urlMethuselah + "refresh.php";
-	public static final String urlValidate     = urlMethuselah + "validate.php";
-	public static final String urlInvalidate   = urlMethuselah + "invalidate.php";
-	public static final String urlSignout      = urlMethuselah + "signout.php";
-	public static final String urlJoin         = urlMethuselah + "join.php";
-	public static final String urlHasJoined    = urlMethuselah + "hasJoined.php";
-	public static final String urlProfileInfo  = urlMethuselah + "profile.php?uuid=";
-	public static final String urlLegacyCheck  = urlMethuselah + "legacy_check.php";
-	public static final String urlLegacyJoin   = urlMethuselah + "legacy_join.php";
+	public static final String urlBase = "https://auth.methuselah.ru/";
+	public static final String urlAuthenticate = urlBase + "authenticate.php";
+	public static final String urlRefresh      = urlBase + "refresh.php";
+	public static final String urlValidate     = urlBase + "validate.php";
+	public static final String urlInvalidate   = urlBase + "invalidate.php";
+	public static final String urlSignout      = urlBase + "signout.php";
+	public static final String urlJoin         = urlBase + "join.php";
+	public static final String urlHasJoined    = urlBase + "hasJoined.php";
+	public static final String urlProfileInfo  = urlBase + "profile.php?uuid=";
+	public static final String urlLegacyCheck  = urlBase + "legacy_check.php";
+	public static final String urlLegacyJoin   = urlBase + "legacy_join.php";
 	public static AuthenticateResponse authenticate(AuthenticatePayload payload) throws ResponseException
 	{
 		return action(urlAuthenticate, payload, AuthenticateResponse.class);
