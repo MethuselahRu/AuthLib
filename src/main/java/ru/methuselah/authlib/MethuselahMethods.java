@@ -20,6 +20,7 @@ import ru.methuselah.authlib.data.InvalidatePayload;
 import ru.methuselah.authlib.data.RefreshPayload;
 import ru.methuselah.authlib.data.RefreshResponse;
 import ru.methuselah.authlib.data.ErrorResponse;
+import ru.methuselah.authlib.data.JoinPayload;
 import ru.methuselah.authlib.data.SignoutPayload;
 import ru.methuselah.authlib.data.ValidatePayload;
 import ru.methuselah.authlib.exceptions.ResponseException;
@@ -60,6 +61,16 @@ public class MethuselahMethods
 		action(urlInvalidate, payload, null);
 		return true;
 	}
+	public static boolean join(JoinPayload payload) throws ResponseException
+	{
+		action(urlJoin, payload, null);
+		return true;
+	}
+	public static boolean hasJoined(InvalidatePayload payload) throws ResponseException
+	{
+		action(urlHasJoined, null, null);
+		return true;
+	}
 	protected static <T> T action(String url, Object payload, Class<T> responseClass) throws ResponseException
 	{
 		try
@@ -76,7 +87,6 @@ public class MethuselahMethods
 		}
 		final Gson gson = new Gson();
 		final ErrorResponse rex = new ErrorResponse();
-		rex.error = "";
 		try
 		{
 			final HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();

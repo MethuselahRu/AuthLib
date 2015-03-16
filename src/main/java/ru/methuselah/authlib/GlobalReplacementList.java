@@ -25,7 +25,7 @@ public final class GlobalReplacementList
 			"https://api.mojang.com/users/profiles/minecraft/", MethuselahMethods.urlBase + "profiles.php"),
 		// UUID -> Name history
 		new ReplacementListEntrySH(
-			"https://api.mojang.com/user/profiles/", MethuselahMethods.urlBase + "toolbox/uuid2name.php"),
+			"https://api.mojang.com/user/profiles/", MethuselahMethods.urlBase + "namestouuids.php"),
 		// Playernames -> UUIDs
 		new ReplacementListEntrySH(
 			"https://api.mojang.com/profiles/minecraft", MethuselahMethods.urlBase + "profiles.php"),
