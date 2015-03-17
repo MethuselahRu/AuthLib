@@ -22,16 +22,20 @@ public final class GlobalReplacementList
 	{
 		// Username -> UUID at time
 		new ReplacementListEntrySH(
-			"https://api.mojang.com/users/profiles/minecraft/", MethuselahMethods.urlBase + "profiles.php"),
+			"https://api.mojang.com/users/profiles/minecraft/",
+			MethuselahMethods.urlBase + "profiles.php?uuid="),
 		// UUID -> Name history
 		new ReplacementListEntrySH(
-			"https://api.mojang.com/user/profiles/", MethuselahMethods.urlBase + "namestouuids.php"),
+			"https://api.mojang.com/user/profiles/",
+			MethuselahMethods.urlBase + "namestouuids.php"),
 		// Playernames -> UUIDs
 		new ReplacementListEntrySH(
-			"https://api.mojang.com/profiles/minecraft", MethuselahMethods.urlBase + "profiles.php"),
+			"https://api.mojang.com/profiles/minecraft",
+			MethuselahMethods.urlBase + "profiles.php"),
 		// UUID -> Profile + Skin/Cape
 		new ReplacementListEntrySH(
-			"https://sessionserver.mojang.com/session/minecraft/profile/", MethuselahMethods.urlBase + "profile.php"),
+			"https://sessionserver.mojang.com/session/minecraft/profile/",
+			MethuselahMethods.urlBase + "profile.php?uuid="),
 	};
 	public final ReplacementListEntrySF[] replacementsSF = defaultReplacementsSF;
 	public final ReplacementListEntrySH[] replacementsSH = defaultReplacementsSH;
