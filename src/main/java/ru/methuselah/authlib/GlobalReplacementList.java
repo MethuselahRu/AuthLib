@@ -20,22 +20,28 @@ public final class GlobalReplacementList
 	};
 	public static final ReplacementListEntrySH[] defaultReplacementsSH =
 	{
-		// Username -> UUID at time
+		/*
+		// (GET) Username -> UUID at time -- NOT WORKING YET
 		new ReplacementListEntrySH(
 			"https://api.mojang.com/users/profiles/minecraft/",
 			MethuselahMethods.urlBase + "profiles.php?uuid="),
-		// UUID -> Name history
+		*/
+		/*
+		// (GET) UUID -> Name history -- NOT WORKING YET 
 		new ReplacementListEntrySH(
 			"https://api.mojang.com/user/profiles/",
 			MethuselahMethods.urlBase + "namestouuids.php"),
-		// Playernames -> UUIDs
+		*/
+		// (JSON POST) Playernames (bulk) -> UUIDs/Names -- WORKING!
 		new ReplacementListEntrySH(
 			"https://api.mojang.com/profiles/minecraft",
-			MethuselahMethods.urlBase + "profiles.php"),
-		// UUID -> Profile + Skin/Cape
+			MethuselahMethods.urlBase + "api/namestouuids.php"),
+		/*
+		// (GET) UUID -> Profile + Skin/Cape -- NOT WORKING YET
 		new ReplacementListEntrySH(
 			"https://sessionserver.mojang.com/session/minecraft/profile/",
 			MethuselahMethods.urlBase + "profile.php?uuid="),
+		*/
 	};
 	public final ReplacementListEntrySF[] replacementsSF = defaultReplacementsSF;
 	public final ReplacementListEntrySH[] replacementsSH = defaultReplacementsSH;
