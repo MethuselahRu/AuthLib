@@ -36,12 +36,10 @@ public final class GlobalReplacementList
 		new ReplacementListEntrySH(
 			"https://api.mojang.com/profiles/minecraft",
 			MethuselahMethods.urlBase + "api/namestouuids.php"),
-		/*
-		// (GET) UUID -> Profile + Skin/Cape -- NOT WORKING YET
+		// (GET) UUID -> Profile + Skin/Cape -- WORKING!
 		new ReplacementListEntrySH(
 			"https://sessionserver.mojang.com/session/minecraft/profile/",
-			MethuselahMethods.urlBase + "profile.php?uuid="),
-		*/
+			MethuselahMethods.urlBase + "api/clothes.php?uuid="),
 	};
 	public final ReplacementListEntrySF[] replacementsSF = defaultReplacementsSF;
 	public final ReplacementListEntrySH[] replacementsSH = defaultReplacementsSH;
