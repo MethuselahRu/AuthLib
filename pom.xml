@@ -67,7 +67,7 @@
 				<configuration>
 				</configuration>
 			</plugin>
-			<!-- Загрузка артифакта в домашний репозиторий -->
+			<!-- Загрузка артефакта в домашний репозиторий -->
 			<!--plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
