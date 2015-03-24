@@ -1,5 +1,4 @@
 package com.mojang.authlib.properties;
-import java.lang.reflect.InvocationTargetException;
 import java.security.PublicKey;
 
 public class Property
@@ -34,10 +33,6 @@ public class Property
 		return signature != null;
 	}
 	public boolean isSignatureValid(PublicKey publicKey)
-	{
-		return true;
-	}
-	public static boolean isFake() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException
 	{
 		return true;
 	}
