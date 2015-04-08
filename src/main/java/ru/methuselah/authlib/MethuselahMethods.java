@@ -35,7 +35,6 @@ public class MethuselahMethods
 	public static final String urlSignout      = urlBase + "signout.php";
 	public static final String urlJoin         = urlBase + "join.php";
 	public static final String urlHasJoined    = urlBase + "hasJoined.php";
-	public static final String urlProfileInfo  = urlBase + "profile.php?uuid=";
 	public static final String urlLegacyCheck  = urlBase + "legacy_check.php";
 	public static final String urlLegacyJoin   = urlBase + "legacy_join.php";
 	public static AuthenticateResponse authenticate(AuthenticatePayload payload) throws ResponseException
