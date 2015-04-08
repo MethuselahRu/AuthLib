@@ -72,18 +72,8 @@ public class MethuselahMethods
 	}
 	protected static <T> T action(String url, Object payload, Class<T> responseClass) throws ResponseException
 	{
-		try
-		{
-			if(url.toLowerCase().startsWith("https"))
-			{
-				final SSLContext sslContext = SSLContext.getInstance("SSL");
-				sslContext.init(null, trustManagers, null);
-				HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-			}
-		} catch(NoSuchAlgorithmException ex) {
-		} catch(KeyManagementException ex) {
-		} catch(RuntimeException ex) {
-		}
+		if(url.startsWith("https"))
+			hackSSL();
 		final Gson gson = new Gson();
 		final ErrorResponse rex = new ErrorResponse();
 		try
@@ -127,21 +117,35 @@ public class MethuselahMethods
 			throw ex;
 		}
 	}
-	private static class FakeTrustManager implements X509TrustManager
+	public static void hackSSL()
 	{
-		@Override
-		public void checkClientTrusted(X509Certificate[] chain, String authType)
+		try
 		{
-		}
-		@Override
-		public void checkServerTrusted(X509Certificate[] chain, String authType)
-		{
-		}
-		@Override
-		public X509Certificate[] getAcceptedIssuers()
-		{
-			return new X509Certificate[0];
+			final SSLContext sslContext = SSLContext.getInstance("SSL");
+			sslContext.init(null, fakeTrustManagerList, null);
+			HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+		} catch(NoSuchAlgorithmException ex) {
+		} catch(KeyManagementException ex) {
+		} catch(RuntimeException ex) {
 		}
 	}
-	private static final FakeTrustManager[] trustManagers = { new FakeTrustManager(), };
+	private static final X509TrustManager[] fakeTrustManagerList =
+	{
+		new X509TrustManager()
+		{
+			@Override
+			public void checkClientTrusted(X509Certificate[] chain, String authType)
+			{
+			}
+			@Override
+			public void checkServerTrusted(X509Certificate[] chain, String authType)
+			{
+			}
+			@Override
+			public X509Certificate[] getAcceptedIssuers()
+			{
+				return new X509Certificate[0];
+			}
+		}
+	};
 }
