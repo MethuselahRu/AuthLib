@@ -117,18 +117,6 @@ public class MethuselahMethods
 			throw ex;
 		}
 	}
-	public static void hackSSL()
-	{
-		try
-		{
-			final SSLContext sslContext = SSLContext.getInstance("SSL");
-			sslContext.init(null, fakeTrustManagerList, null);
-			HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-		} catch(NoSuchAlgorithmException ex) {
-		} catch(KeyManagementException ex) {
-		} catch(RuntimeException ex) {
-		}
-	}
 	private static final X509TrustManager[] fakeTrustManagerList =
 	{
 		new X509TrustManager()
@@ -148,4 +136,16 @@ public class MethuselahMethods
 			}
 		}
 	};
+	public static void hackSSL()
+	{
+		try
+		{
+			final SSLContext sslContext = SSLContext.getInstance("SSL");
+			sslContext.init(null, fakeTrustManagerList, null);
+			HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+		} catch(NoSuchAlgorithmException ex) {
+		} catch(KeyManagementException ex) {
+		} catch(RuntimeException ex) {
+		}
+	}
 }

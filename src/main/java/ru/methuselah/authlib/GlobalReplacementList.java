@@ -36,6 +36,10 @@ public final class GlobalReplacementList
 		new ReplacementListEntrySH(
 			"https://sessionserver.mojang.com/session/minecraft/profile/",
 			MethuselahMethods.urlBase + "api/clothes.php?uuid="),
+		// This is needed for BungeeCord
+		new ReplacementListEntrySH(
+			"https://sessionserver.mojang.com/session/minecraft/hasJoined",
+			MethuselahMethods.urlHasJoined),
 	};
 	public final ReplacementListEntrySF[] replacementsSF = defaultReplacementsSF;
 	public final ReplacementListEntrySH[] replacementsSH = defaultReplacementsSH;
