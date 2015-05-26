@@ -17,6 +17,8 @@ public final class GlobalReplacementList
 		new ReplacementListEntrySF("authlib.yggdrasil.YggdrasilMinecraftSessionService", "BASE_URL",      MethuselahMethods.urlBase),
 		new ReplacementListEntrySF("authlib.yggdrasil.YggdrasilMinecraftSessionService", "JOIN_URL",      MethuselahMethods.urlJoin),
 		new ReplacementListEntrySF("authlib.yggdrasil.YggdrasilMinecraftSessionService", "CHECK_URL",     MethuselahMethods.urlHasJoined),
+		// BungeeCord: For cancelled Pull Request #1481, https://github.com/SpigotMC/BungeeCord/pull/1481
+		new ReplacementListEntrySF("net.md_5.bungee.connection.InitialHandler.class", "baseAuthURL",      MethuselahMethods.urlHasJoined + "?username="),
 	};
 	public static final ReplacementListEntrySH[] defaultReplacementsSH =
 	{
