@@ -14,7 +14,7 @@ Include this into your ```pom.xml``` to add it as a dependency:
 	<dependencies>
 		<dependency>
 			<groupId>ru.methuselah</groupId>
-			<artifactId>serversideplugin-api</artifactId>
+			<artifactId>authlib</artifactId>
 			<version>0.14a</version>
 		</dependency>
 		...
