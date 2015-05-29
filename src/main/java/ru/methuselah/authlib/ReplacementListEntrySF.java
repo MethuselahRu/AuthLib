@@ -10,6 +10,8 @@ public class ReplacementListEntrySF
 		"net.minecraft.util.com.mojang.",
 		// Spigot
 		"org.spigotmc.",
+		// Other
+		"",
 	};
 	public final String targetClass;
 	public final String targetField;
