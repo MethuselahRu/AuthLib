@@ -1,4 +1,5 @@
 package ru.methuselah.authlib.exceptions;
+
 import ru.methuselah.authlib.data.ErrorResponse;
 
 public class ResponseException extends Exception

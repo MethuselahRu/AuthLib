@@ -1,4 +1,5 @@
 package com.mojang.authlib.properties;
+
 import java.security.PublicKey;
 
 public class Property

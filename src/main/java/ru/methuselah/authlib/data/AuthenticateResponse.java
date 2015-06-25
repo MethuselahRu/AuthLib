@@ -1,7 +1,7 @@
 package ru.methuselah.authlib.data;
 import ru.methuselah.authlib.UserProvider;
 import ru.methuselah.authlib.UserRole;
-import ru.methuselah.authlib.Profile;
+import ru.methuselah.authlib.mojang.Profile;
 
 public class AuthenticateResponse
 {
@@ -21,6 +21,12 @@ public class AuthenticateResponse
 	 * Описание выбранного профиля
 	 */
 	public Profile selectedProfile = new Profile();
+	/**
+	 * Роль игрока (определяет уровень доступа)
+	*/
 	public UserRole role = UserRole.nonauth;
+	/**
+	 * Провайдер аутентификации, принявший игрока
+	 */
 	public UserProvider provider = UserProvider.nonauth;
 }
