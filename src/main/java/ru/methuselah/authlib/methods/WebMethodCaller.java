@@ -1,4 +1,4 @@
-package ru.methuselah.authlib;
+package ru.methuselah.authlib.methods;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -24,9 +24,8 @@ import ru.methuselah.authlib.data.RefreshPayload;
 import ru.methuselah.authlib.data.RefreshResponse;
 import ru.methuselah.authlib.data.SignoutPayload;
 import ru.methuselah.authlib.data.ValidatePayload;
-import ru.methuselah.authlib.exceptions.ResponseException;
 
-public class MethuselahMethods
+public class WebMethodCaller
 {
 	public static final String urlBase = "https://auth.methuselah.ru/";
 	public static final String urlAuthenticate = urlBase + "authenticate.php";

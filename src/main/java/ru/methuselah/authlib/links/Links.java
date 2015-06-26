@@ -1,6 +1,6 @@
 package ru.methuselah.authlib.links;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class Links
 {
@@ -113,12 +113,60 @@ public abstract class Links
 		return this.provider;
 	}
 	
-	GlobalReplacementList buildReplacements()
+	private static final String[] authlibClassPackagePrefixes =
+	{
+		// На ванильных серверах/клиентах
+		"com.mojang.",
+		// В нёдрах серверных ядер CraftBukkit
+		"net.minecraft.util.com.mojang.",
+		// В нёдрах серверных ядер Spigot
+		"org.spigotmc.",
+		// Альтернативные сервера/клиенты указывают полный путь к классу
+		"",
+	};
+	
+	/**
+	 * Генерация списка правил модификации интернет-адресов на основе текущего списка ссылок к скриптам
+	 * @return Объект, описывающий правила модификации используемых URL-адресов
+	 */
+	public GlobalReplacementList buildReplacements()
 	{
 		final String prefix = (urlBase != null ? urlBase : "");
 		
 		// SFs
 		final ArrayList<ReplacementListEntrySF> rSFs = new ArrayList<ReplacementListEntrySF>();
+		for(String packagePrefix : authlibClassPackagePrefixes)
+		{
+			// Yggdrasil
+			final String yggdrasilUA  = packagePrefix + "authlib.yggdrasil.YggdrasilUserAuthentication";
+			final String yggdrasilMSS = packagePrefix + "authlib.yggdrasil.YggdrasilMinecraftSessionService";
+			final String legacyMSS    = packagePrefix + "authlib.legacy.LegacyMinecraftSessionService";
+			if(urlBase != null && !"".equals(urlBase))
+			{
+				rSFs.add(new ReplacementListEntrySF(yggdrasilUA,  "BASE_URL", urlBase));
+				rSFs.add(new ReplacementListEntrySF(yggdrasilMSS, "BASE_URL", urlBase));
+			}
+			if(methodAuthenticate != null && !"".equals(methodAuthenticate))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_AUTHENTICATE", prefix + methodAuthenticate));
+			if(methodRefresh != null && !"".equals(methodRefresh))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_REFRESH",      prefix + methodRefresh));
+			if(methodValidate != null && !"".equals(methodValidate))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_VALIDATE",     prefix + methodValidate));
+			if(methodInvalidate != null && !"".equals(methodInvalidate))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_INVALIDATE",   prefix + methodInvalidate));
+			if(methodSighout != null && !"".equals(methodSighout))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_SIGNOUT",      prefix + methodSighout));
+			// Join, HasJoined
+			if(methodJoin != null && !"".equals(methodJoin))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilMSS, "JOIN_URL",  prefix + methodJoin));
+			if(methodHasJoined != null && !"".equals(methodHasJoined))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilMSS, "CHECK_URL", prefix + methodHasJoined));
+			// Legacy
+			if(methodJoin != null && !"".equals(methodJoin))
+				rSFs.add(new ReplacementListEntrySF(legacyMSS, "JOIN_URL",  prefix + legacyJoin));
+			if(methodHasJoined != null && !"".equals(methodHasJoined))
+				rSFs.add(new ReplacementListEntrySF(legacyMSS, "CHECK_URL", prefix + legacyHasJoined));
+		}
 		
 		// SHs
 		final ArrayList<ReplacementListEntrySH> rSHs = new ArrayList<ReplacementListEntrySH>();
@@ -133,13 +181,13 @@ public abstract class Links
 			rSHs.add(new ReplacementListEntrySH(mojangI, prefix + methodInvalidate));
 		if(methodSighout != null && !"".equals(methodSighout))
 			rSHs.add(new ReplacementListEntrySH(mojangS, prefix + methodSighout));
-		// j/hj, legacy j/hj
+		// Join, HasJoined, Legacy J/HJ
 		if(methodJoin != null && !"".equals(methodJoin))
-			rSHs.add(new ReplacementListEntrySH(mojangJ, prefix + methodJoin));
+			rSHs.add(new ReplacementListEntrySH(mojangJ,   prefix + methodJoin));
 		if(methodHasJoined != null && !"".equals(methodHasJoined))
-			rSHs.add(new ReplacementListEntrySH(mojangHJ, prefix + methodHasJoined));
+			rSHs.add(new ReplacementListEntrySH(mojangHJ,  prefix + methodHasJoined));
 		if(legacyJoin != null && !"".equals(legacyJoin))
-			rSHs.add(new ReplacementListEntrySH(mojangLJ, prefix + legacyJoin));
+			rSHs.add(new ReplacementListEntrySH(mojangLJ,  prefix + legacyJoin));
 		if(legacyHasJoined != null && !"".equals(legacyHasJoined))
 			rSHs.add(new ReplacementListEntrySH(mojangLHJ, prefix + legacyHasJoined));
 		// APIs

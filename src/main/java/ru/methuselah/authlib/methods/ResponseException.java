@@ -1,4 +1,4 @@
-package ru.methuselah.authlib.exceptions;
+package ru.methuselah.authlib.methods;
 
 import ru.methuselah.authlib.data.ErrorResponse;
 
