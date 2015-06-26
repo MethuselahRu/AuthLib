@@ -1,5 +1,5 @@
 # AuthLib
-A set of classes for making authentication with Methuselah.
+A set of classes for making authentication with methuselah.ru / ely.by / custom urls.
 
 Include this into your ```pom.xml``` to add it as a dependency:
 ```
