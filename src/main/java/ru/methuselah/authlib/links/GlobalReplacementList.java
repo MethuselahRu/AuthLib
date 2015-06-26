@@ -1,4 +1,5 @@
-package ru.methuselah.authlib;
+package ru.methuselah.authlib.links;
+import ru.methuselah.authlib.MethuselahMethods;
 
 public final class GlobalReplacementList
 {
@@ -43,9 +44,16 @@ public final class GlobalReplacementList
 			"https://sessionserver.mojang.com/session/minecraft/hasJoined",
 			MethuselahMethods.urlHasJoined),
 	};
-	public final ReplacementListEntrySF[] replacementsSF = defaultReplacementsSF;
-	public final ReplacementListEntrySH[] replacementsSH = defaultReplacementsSH;
+	public final ReplacementListEntrySF[] replacementsSF;
+	public final ReplacementListEntrySH[] replacementsSH;
 	public GlobalReplacementList()
 	{
+		this.replacementsSF = defaultReplacementsSF;
+		this.replacementsSH = defaultReplacementsSH;
+	}
+	public GlobalReplacementList(ReplacementListEntrySF[] rSFs, ReplacementListEntrySH[] rSHs)
+	{
+		this.replacementsSF = rSFs;
+		this.replacementsSH = rSHs;
 	}
 }

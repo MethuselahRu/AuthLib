@@ -1,4 +1,4 @@
-package ru.methuselah.authlib;
+package ru.methuselah.authlib.links;
 
 public class ReplacementListEntrySH
 {

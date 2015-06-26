@@ -1,4 +1,4 @@
-package ru.methuselah.authlib;
+package ru.methuselah.authlib.links;
 
 public final class LinksMethuselah extends Links
 {
@@ -18,5 +18,6 @@ public final class LinksMethuselah extends Links
 			"/api/namehistory.php",
 			"/api/namestouuids.php",
 			"/api/clothes.php");
+		super.setProvider(Links.LinksProvider.methuselah);
 	}
 }

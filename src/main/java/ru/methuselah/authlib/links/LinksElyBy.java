@@ -1,4 +1,4 @@
-package ru.methuselah.authlib;
+package ru.methuselah.authlib.links;
 
 public final class LinksElyBy extends Links
 {
@@ -18,5 +18,6 @@ public final class LinksElyBy extends Links
 			null,
 			null,
 			"/session/profile/");
+		super.setProvider(Links.LinksProvider.elyby);
 	}
 }
