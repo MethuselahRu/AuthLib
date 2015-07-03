@@ -9,7 +9,7 @@ public abstract class Links
 	private final String methodRefresh;
 	private final String methodValidate;
 	private final String methodInvalidate;
-	private final String methodSighout;
+	private final String methodSignout;
 	private final String methodJoin;
 	private final String methodHasJoined;
 	private final String legacyJoin;
@@ -35,20 +35,20 @@ public abstract class Links
 
 	/**
 	 *
-	 * @param b Базовый адрес для конкатенации с нижеследующими методами, например https://auth.methuselah.ru
-	 * @param a Адрес метода authenticate, например /authenticate.php
-	 * @param r Адрес метода refresh, например /refresh.php
-	 * @param v Адрес метода validate, например /validate.php
-	 * @param i Адрес метода invalidate, например /invalidate.php
-	 * @param s Адрес метода sighout, например /sighout.php
-	 * @param j Адрес метода join, например /join.php
-	 * @param hj Адрес метода hasJoined, например /hasJoined.php
-	 * @param lj Адрес метода join для устаревшей системы аутентификации, основанной на сессиях
+	 * @param b   Базовый адрес для конкатенации с нижеследующими методами, например https://auth.methuselah.ru
+	 * @param a   Адрес метода authenticate, например /authenticate.php
+	 * @param r   Адрес метода refresh, например /refresh.php
+	 * @param v   Адрес метода validate, например /validate.php
+	 * @param i   Адрес метода invalidate, например /invalidate.php
+	 * @param s   Адрес метода signout, например /signout.php
+	 * @param j   Адрес метода join, например /join.php
+	 * @param hj  Адрес метода hasJoined, например /hasJoined.php
+	 * @param lj  Адрес метода join для устаревшей системы аутентификации, основанной на сессиях
 	 * @param lhj Адрес метода hasJoined для устаревшей системы аутентификации, основанной на сессиях
-	 * @param a1 Адрес метода Username → UUID at time
-	 * @param a2 Адрес метода UUID → Name history
-	 * @param a3 Адрес метода Playernames → UUIDs
-	 * @param a4 Адрес метода UUID → Profile + Skin/Cape
+	 * @param a1  Адрес метода Username → UUID at time
+	 * @param a2  Адрес метода UUID → Name history
+	 * @param a3  Адрес метода Playernames → UUIDs
+	 * @param a4  Адрес метода UUID → Profile + Skin/Cape
 	 */
 	protected Links(String b, String a, String r, String v, String i, String s, String j, String hj, String lj, String lhj, String a1, String a2, String a3, String a4)
 	{
@@ -57,7 +57,7 @@ public abstract class Links
 		this.methodRefresh      = r;
 		this.methodValidate     = v;
 		this.methodInvalidate   = i;
-		this.methodSighout      = s;
+		this.methodSignout      = s;
 		this.methodJoin         = j;
 		this.methodHasJoined    = hj;
 		this.legacyJoin         = lj;
@@ -113,17 +113,118 @@ public abstract class Links
 		return this.provider;
 	}
 	
-	private static final String[] authlibClassPackagePrefixes =
+	/**
+	 * Получение базы для URL-адресов всех веб-методов
+	 * @return Общая начальная часть URL-адресов
+	 */
+	public String getBaseURL()
 	{
-		// На ванильных серверах/клиентах
-		"com.mojang.",
-		// В нёдрах серверных ядер CraftBukkit
-		"net.minecraft.util.com.mojang.",
-		// В нёдрах серверных ядер Spigot
-		"org.spigotmc.",
-		// Альтернативные сервера/клиенты указывают полный путь к классу
-		"",
-	};
+		return (urlBase != null ? urlBase : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getAuthenticate()
+	{
+		return (urlBase != null ? urlBase : "") + (methodAuthenticate != null ? methodAuthenticate : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getRefresh()
+	{
+		return (urlBase != null ? urlBase : "") + (methodRefresh != null ? methodRefresh : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getValidate()
+	{
+		return (urlBase != null ? urlBase : "") + (methodValidate != null ? methodValidate : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getInvalidate()
+	{
+		return (urlBase != null ? urlBase : "") + (methodInvalidate != null ? methodInvalidate : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getSignout()
+	{
+		return (urlBase != null ? urlBase : "") + (methodSignout != null ? methodSignout : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getJoin()
+	{
+		return (urlBase != null ? urlBase : "") + (methodJoin != null ? methodJoin : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getHasJoined()
+	{
+		return (urlBase != null ? urlBase : "") + (methodHasJoined != null ? methodHasJoined : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getLegacyJoin()
+	{
+		return (urlBase != null ? urlBase : "") + (legacyJoin != null ? legacyJoin : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getLegacyHasJoined()
+	{
+		return (urlBase != null ? urlBase : "") + (legacyHasJoined != null ? legacyHasJoined : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getNameToUUID()
+	{
+		return (urlBase != null ? urlBase : "") + (apiNameToUUID != null ? apiNameToUUID : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getNameHistor()
+	{
+		return (urlBase != null ? urlBase : "") + (apiNameHistory != null ? apiNameHistory : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getBulkNames()
+	{
+		return (urlBase != null ? urlBase : "") + (apiBulkNames != null ? apiBulkNames : "");
+	}
+	/**
+	 * Получение URL-адреса для веб-метода
+	 * @return URL-адрес соответствующего метода
+	 */
+	public String getProfile()
+	{
+		return (urlBase != null ? urlBase : "") + (apiProfile != null ? apiProfile : "");
+	}
 	
 	/**
 	 * Генерация списка правил модификации интернет-адресов на основе текущего списка ссылок к скриптам
@@ -154,8 +255,8 @@ public abstract class Links
 				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_VALIDATE",     prefix + methodValidate));
 			if(methodInvalidate != null && !"".equals(methodInvalidate))
 				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_INVALIDATE",   prefix + methodInvalidate));
-			if(methodSighout != null && !"".equals(methodSighout))
-				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_SIGNOUT",      prefix + methodSighout));
+			if(methodSignout != null && !"".equals(methodSignout))
+				rSFs.add(new ReplacementListEntrySF(yggdrasilUA, "ROUTE_SIGNOUT",      prefix + methodSignout));
 			// Join, HasJoined
 			if(methodJoin != null && !"".equals(methodJoin))
 				rSFs.add(new ReplacementListEntrySF(yggdrasilMSS, "JOIN_URL",  prefix + methodJoin));
@@ -179,8 +280,8 @@ public abstract class Links
 			rSHs.add(new ReplacementListEntrySH(mojangV, prefix + methodValidate));
 		if(methodInvalidate != null && !"".equals(methodInvalidate))
 			rSHs.add(new ReplacementListEntrySH(mojangI, prefix + methodInvalidate));
-		if(methodSighout != null && !"".equals(methodSighout))
-			rSHs.add(new ReplacementListEntrySH(mojangS, prefix + methodSighout));
+		if(methodSignout != null && !"".equals(methodSignout))
+			rSHs.add(new ReplacementListEntrySH(mojangS, prefix + methodSignout));
 		// Join, HasJoined, Legacy J/HJ
 		if(methodJoin != null && !"".equals(methodJoin))
 			rSHs.add(new ReplacementListEntrySH(mojangJ,   prefix + methodJoin));
@@ -205,4 +306,15 @@ public abstract class Links
 			rSFs.toArray(new ReplacementListEntrySF[rSFs.size()]),
 			rSHs.toArray(new ReplacementListEntrySH[rSHs.size()]));
 	}
+	private static final String[] authlibClassPackagePrefixes =
+	{
+		// На ванильных серверах/клиентах
+		"com.mojang.",
+		// В нёдрах серверных ядер CraftBukkit
+		"net.minecraft.util.com.mojang.",
+		// В нёдрах серверных ядер Spigot
+		"org.spigotmc.",
+		// Альтернативные сервера/клиенты указывают полный путь к классу
+		"",
+	};
 }

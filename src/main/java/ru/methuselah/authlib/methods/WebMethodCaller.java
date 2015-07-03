@@ -1,151 +1,108 @@
 package ru.methuselah.authlib.methods;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
-import com.google.gson.stream.JsonReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.X509TrustManager;
 import ru.methuselah.authlib.data.AuthenticatePayload;
 import ru.methuselah.authlib.data.AuthenticateResponse;
-import ru.methuselah.authlib.data.ErrorResponse;
 import ru.methuselah.authlib.data.InvalidatePayload;
 import ru.methuselah.authlib.data.JoinPayload;
 import ru.methuselah.authlib.data.RefreshPayload;
 import ru.methuselah.authlib.data.RefreshResponse;
 import ru.methuselah.authlib.data.SignoutPayload;
 import ru.methuselah.authlib.data.ValidatePayload;
+import ru.methuselah.authlib.links.Links;
 
-public class WebMethodCaller
+/**
+ * Объект, совершающий вызовы веб-методов
+ */
+public class WebMethodCaller extends WebConnection
 {
-	public static final String urlBase = "https://auth.methuselah.ru/";
-	public static final String urlAuthenticate = urlBase + "authenticate.php";
-	public static final String urlRefresh      = urlBase + "refresh.php";
-	public static final String urlValidate     = urlBase + "validate.php";
-	public static final String urlInvalidate   = urlBase + "invalidate.php";
-	public static final String urlSignout      = urlBase + "signout.php";
-	public static final String urlJoin         = urlBase + "join.php";
-	public static final String urlHasJoined    = urlBase + "hasJoined.php";
-	public static final String urlLegacyCheck  = urlBase + "legacy_check.php";
-	public static final String urlLegacyJoin   = urlBase + "legacy_join.php";
-	public static AuthenticateResponse authenticate(AuthenticatePayload payload) throws ResponseException
+	private final Links links;
+
+	/**
+	 * Построение объекта, совершающего вызовы веб-методов.
+	 * @param links Менеджер ссылок к веб-методам.
+	 * @throws IllegalArgumentException Если links == null или links.getProvider() == invalid.
+	 */
+	public WebMethodCaller(Links links) throws IllegalArgumentException
 	{
-		return action(urlAuthenticate, payload, AuthenticateResponse.class);
+		if(links == null)
+			throw new IllegalArgumentException("Argument links cannot be null.");
+		if(links.getProvider().equals(Links.LinksProvider.invalid))
+			throw new IllegalArgumentException("Argument links has to have valid urls.");
+		this.links = links;
 	}
-	public static RefreshResponse refresh(RefreshPayload payload) throws ResponseException
+	/**
+	 * Вызов веб-метода authenticate
+	 * @param payload Объект, кодируемый в JSON и помещаемый в нагрузку POST запроса
+	 * @return Декодированный JSON-объект с результатами вызова
+	 * @throws ResponseException При возникновении любых ошибок
+	 */
+	public AuthenticateResponse authenticate(AuthenticatePayload payload) throws ResponseException
 	{
-		return action(urlRefresh, payload, RefreshResponse.class);
+		return webExecute(links.getAuthenticate(), payload, AuthenticateResponse.class);
 	}
-	public static boolean validate(ValidatePayload payload) throws ResponseException
+	/**
+	 * Вызов веб-метода refresh
+	 * @param payload Объект, кодируемый в JSON и помещаемый в нагрузку POST запроса
+	 * @return Декодированный JSON-объект с результатами вызова
+	 * @throws ResponseException При возникновении любых ошибок
+	 */
+	public RefreshResponse refresh(RefreshPayload payload) throws ResponseException
 	{
-		action(urlValidate, payload, null);
+		return webExecute(links.getRefresh(), payload, RefreshResponse.class);
+	}
+	/**
+	 * Вызов веб-метода validate
+	 * @param payload Объект, кодируемый в JSON и помещаемый в нагрузку POST запроса
+	 * @return true в случае успеха
+	 * @throws ResponseException При возникновении любых ошибок
+	 */
+	public boolean validate(ValidatePayload payload) throws ResponseException
+	{
+		webExecute(links.getValidate(), payload, null);
 		return true;
 	}
-	public static boolean signout(SignoutPayload payload) throws ResponseException
+	/**
+	 * Вызов веб-метода invalidate
+	 * @param payload Объект, кодируемый в JSON и помещаемый в нагрузку POST запроса
+	 * @return true в случае успеха
+	 * @throws ResponseException При возникновении любых ошибок
+	 */
+	public boolean invalidate(InvalidatePayload payload) throws ResponseException
 	{
-		action(urlSignout, payload, null);
+		webExecute(links.getInvalidate(), payload, null);
 		return true;
 	}
-	public static boolean invalidate(InvalidatePayload payload) throws ResponseException
+	/**
+	 * Вызов веб-метода signout
+	 * @param payload Объект, кодируемый в JSON и помещаемый в нагрузку POST запроса
+	 * @return true в случае успеха
+	 * @throws ResponseException При возникновении любых ошибок
+	 */
+	public boolean signout(SignoutPayload payload) throws ResponseException
 	{
-		action(urlInvalidate, payload, null);
+		webExecute(links.getSignout(), payload, null);
 		return true;
 	}
-	public static boolean join(JoinPayload payload) throws ResponseException
+	/**
+	 * Вызов веб-метода join
+	 * @param payload Объект, кодируемый в JSON и помещаемый в нагрузку POST запроса
+	 * @return true в случае успеха
+	 * @throws ResponseException При возникновении любых ошибок
+	 */
+	public boolean join(JoinPayload payload) throws ResponseException
 	{
-		action(urlJoin, payload, null);
+		webExecute(links.getJoin(), payload, null);
 		return true;
 	}
-	public static boolean hasJoined(InvalidatePayload payload) throws ResponseException
+	/**
+	 * Вызов веб-метода hasJoined
+	 * @param payload Объект, кодируемый в JSON и помещаемый в нагрузку POST запроса
+	 * @return true в случае успеха
+	 * @throws ResponseException При возникновении любых ошибок
+	 */
+	public boolean hasJoined(InvalidatePayload payload) throws ResponseException
 	{
-		action(urlHasJoined, null, null);
+		webExecute(links.getHasJoined(), null, null);
 		return true;
-	}
-	protected static <T> T action(String url, Object payload, Class<T> responseClass) throws ResponseException
-	{
-		if(url.startsWith("https"))
-			hackSSL();
-		final Gson gson = new Gson();
-		final ErrorResponse rex = new ErrorResponse();
-		try
-		{
-			final HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			connection.setRequestMethod("POST");
-			connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-			connection.setConnectTimeout(5000);
-			connection.setReadTimeout(5000);
-			connection.setUseCaches(false);
-			final DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
-			dos.write(gson.toJson(payload).getBytes("UTF-8"));
-			dos.flush();
-			dos.close();
-			int responseCode = connection.getResponseCode();
-			rex.errorMessage = Integer.toString(responseCode) + ": " + connection.getResponseMessage();
-			if(responseCode == HttpURLConnection.HTTP_OK)
-			{
-				final JsonReader jr = new JsonReader(new InputStreamReader(connection.getInputStream()));
-				return gson.fromJson(jr, responseClass);
-			} else {
-				final JsonReader jr = new JsonReader(new InputStreamReader(connection.getErrorStream()));
-				final ErrorResponse info = gson.fromJson(jr, ErrorResponse.class);
-				throw new ResponseException(info);
-			}
-		} catch(JsonParseException ex) {
-			rex.error = ex.getLocalizedMessage();
-			rex.errorMessage = ex.getMessage();
-			throw new ResponseException(rex);
-		} catch(MalformedURLException ex) {
-			rex.error = ex.getLocalizedMessage();
-			rex.errorMessage = ex.getMessage();
-			throw new ResponseException(rex);
-		} catch(IOException ex) {
-			rex.error = ex.getLocalizedMessage();
-			rex.errorMessage = ex.getMessage();
-			throw new ResponseException(rex);
-		} catch(ResponseException ex) {
-			throw ex;
-		}
-	}
-	private static final X509TrustManager[] fakeTrustManagerList =
-	{
-		new X509TrustManager()
-		{
-			@Override
-			public void checkClientTrusted(X509Certificate[] chain, String authType)
-			{
-			}
-			@Override
-			public void checkServerTrusted(X509Certificate[] chain, String authType)
-			{
-			}
-			@Override
-			public X509Certificate[] getAcceptedIssuers()
-			{
-				return new X509Certificate[0];
-			}
-		}
-	};
-	public static void hackSSL()
-	{
-		try
-		{
-			final SSLContext sslContext = SSLContext.getInstance("SSL");
-			sslContext.init(null, fakeTrustManagerList, null);
-			HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-		} catch(NoSuchAlgorithmException ex) {
-		} catch(KeyManagementException ex) {
-		} catch(RuntimeException ex) {
-		}
 	}
 }
