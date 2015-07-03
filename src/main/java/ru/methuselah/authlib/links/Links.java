@@ -205,7 +205,7 @@ public abstract class Links
 	 * Получение URL-адреса для веб-метода
 	 * @return URL-адрес соответствующего метода
 	 */
-	public String getNameHistor()
+	public String getNameHistory()
 	{
 		return (urlBase != null ? urlBase : "") + (apiNameHistory != null ? apiNameHistory : "");
 	}
