@@ -4,7 +4,7 @@ public final class LinksElyBy extends Links
 {
 	public LinksElyBy()
 	{
-		super("http://minecraft.ely.by",
+		super("https://authserver.ely.by",
 			"/auth/authenticate",
 			"/auth/refresh",
 			"/auth/validate",
