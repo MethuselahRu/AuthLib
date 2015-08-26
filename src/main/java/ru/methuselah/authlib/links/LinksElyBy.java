@@ -14,9 +14,9 @@ public final class LinksElyBy extends Links
 			"/session/hasJoined",
 			"/session/legacy/join",
 			"/session/legacy/hasJoined",
-			null,
-			null,
-			null,
+			"/api/users/profiles/minecraft/",
+			"/api/user/profiles/",
+			"/api/profiles/minecraft",
 			"/session/profile/");
 		super.setProvider(Links.LinksProvider.elyby);
 	}
