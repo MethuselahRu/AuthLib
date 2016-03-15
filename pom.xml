@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.3.1</version>
+			<version>2.6.2</version>
 		</dependency>
 	</dependencies>
 
@@ -35,7 +35,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.5.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -95,7 +95,7 @@
 	<distributionManagement>
 		<repository>
 			<id>methuselah-public</id>
-			<name>Methuselah Public</name>
+			<name>methuselah-public</name>
 			<url>http://localhost:18088/content/repositories/methuselah-public/</url>
 		</repository>
 	</distributionManagement>
