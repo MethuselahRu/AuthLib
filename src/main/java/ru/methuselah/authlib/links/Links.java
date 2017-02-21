@@ -19,19 +19,19 @@ public abstract class Links
 	private final String apiBulkNames;
 	private final String apiProfile;
 	
-	protected final static String mojangA    = "https://authserver.mojang.com/authenticate";
-	protected final static String mojangR    = "https://authserver.mojang.com/refresh";
-	protected final static String mojangV    = "https://authserver.mojang.com/validate";
-	protected final static String mojangI    = "https://authserver.mojang.com/invalidate";
-	protected final static String mojangS    = "https://authserver.mojang.com/signout";
-	protected final static String mojangJ    = "https://sessionserver.mojang.com/session/minecraft/join";
-	protected final static String mojangHJ   = "https://sessionserver.mojang.com/session/minecraft/hasJoined";
-	protected final static String mojangLJ   = "http://session.minecraft.net/game/joinserver.jsp";
-	protected final static String mojangLHJ  = "http://session.minecraft.net/game/checkserver.jsp";
-	protected final static String mojangAPI1 = "https://api.mojang.com/users/profiles/minecraft/";
-	protected final static String mojangAPI2 = "https://api.mojang.com/user/profiles/";
-	protected final static String mojangAPI3 = "https://api.mojang.com/profiles/minecraft";
-	protected final static String mojangAPI4 = "https://sessionserver.mojang.com/session/minecraft/profile/";
+	protected final static String MOJANG_A    = "https://authserver.mojang.com/authenticate";
+	protected final static String MOJANG_R    = "https://authserver.mojang.com/refresh";
+	protected final static String MOJANG_V    = "https://authserver.mojang.com/validate";
+	protected final static String MOJANG_I    = "https://authserver.mojang.com/invalidate";
+	protected final static String MOJANG_S    = "https://authserver.mojang.com/signout";
+	protected final static String MOJANG_J    = "https://sessionserver.mojang.com/session/minecraft/join";
+	protected final static String MOJANG_HJ   = "https://sessionserver.mojang.com/session/minecraft/hasJoined";
+	protected final static String MOJANG_LJ   = "http://session.minecraft.net/game/joinserver.jsp";
+	protected final static String MOJANG_LHJ  = "http://session.minecraft.net/game/checkserver.jsp";
+	protected final static String MOJANG_API1 = "https://api.mojang.com/users/profiles/minecraft/";
+	protected final static String MOJANG_API2 = "https://api.mojang.com/user/profiles/";
+	protected final static String MOJANG_API3 = "https://api.mojang.com/profiles/minecraft";
+	protected final static String MOJANG_API4 = "https://sessionserver.mojang.com/session/minecraft/profile/";
 
 	/**
 	 *
@@ -235,7 +235,7 @@ public abstract class Links
 		final String prefix = (urlBase != null ? urlBase : "");
 		
 		// SFs
-		final ArrayList<ReplacementListEntrySF> rSFs = new ArrayList<ReplacementListEntrySF>();
+		final ArrayList<ReplacementListEntrySF> rSFs = new ArrayList<>();
 		for(String packagePrefix : authlibClassPackagePrefixes)
 		{
 			// Yggdrasil
@@ -270,36 +270,36 @@ public abstract class Links
 		}
 		
 		// SHs
-		final ArrayList<ReplacementListEntrySH> rSHs = new ArrayList<ReplacementListEntrySH>();
+		final ArrayList<ReplacementListEntrySH> rSHs = new ArrayList<>();
 		// ... arvis
 		if(methodAuthenticate != null && !"".equals(methodAuthenticate))
-			rSHs.add(new ReplacementListEntrySH(mojangA, prefix + methodAuthenticate));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_A, prefix + methodAuthenticate));
 		if(methodRefresh != null && !"".equals(methodRefresh))
-			rSHs.add(new ReplacementListEntrySH(mojangR, prefix + methodRefresh));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_R, prefix + methodRefresh));
 		if(methodValidate != null && !"".equals(methodValidate))
-			rSHs.add(new ReplacementListEntrySH(mojangV, prefix + methodValidate));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_V, prefix + methodValidate));
 		if(methodInvalidate != null && !"".equals(methodInvalidate))
-			rSHs.add(new ReplacementListEntrySH(mojangI, prefix + methodInvalidate));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_I, prefix + methodInvalidate));
 		if(methodSignout != null && !"".equals(methodSignout))
-			rSHs.add(new ReplacementListEntrySH(mojangS, prefix + methodSignout));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_S, prefix + methodSignout));
 		// Join, HasJoined, Legacy J/HJ
 		if(methodJoin != null && !"".equals(methodJoin))
-			rSHs.add(new ReplacementListEntrySH(mojangJ,   prefix + methodJoin));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_J,   prefix + methodJoin));
 		if(methodHasJoined != null && !"".equals(methodHasJoined))
-			rSHs.add(new ReplacementListEntrySH(mojangHJ,  prefix + methodHasJoined));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_HJ,  prefix + methodHasJoined));
 		if(legacyJoin != null && !"".equals(legacyJoin))
-			rSHs.add(new ReplacementListEntrySH(mojangLJ,  prefix + legacyJoin));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_LJ,  prefix + legacyJoin));
 		if(legacyHasJoined != null && !"".equals(legacyHasJoined))
-			rSHs.add(new ReplacementListEntrySH(mojangLHJ, prefix + legacyHasJoined));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_LHJ, prefix + legacyHasJoined));
 		// APIs
 		if(apiNameToUUID != null && !"".equals(apiNameToUUID))
-			rSHs.add(new ReplacementListEntrySH(mojangAPI1, prefix + apiNameToUUID));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_API1, prefix + apiNameToUUID));
 		if(apiNameHistory != null && !"".equals(apiNameHistory))
-			rSHs.add(new ReplacementListEntrySH(mojangAPI2, prefix + apiNameHistory));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_API2, prefix + apiNameHistory));
 		if(apiBulkNames != null && !"".equals(apiBulkNames))
-			rSHs.add(new ReplacementListEntrySH(mojangAPI3, prefix + apiBulkNames));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_API3, prefix + apiBulkNames));
 		if(apiProfile != null && !"".equals(apiProfile))
-			rSHs.add(new ReplacementListEntrySH(mojangAPI4, prefix + apiProfile));
+			rSHs.add(new ReplacementListEntrySH(MOJANG_API4, prefix + apiProfile));
 		
 		// Вернуть результат
 		return new GlobalReplacementList(
