@@ -12,6 +12,7 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.Scanner;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.X509TrustManager;
@@ -24,8 +25,10 @@ abstract class WebConnection
 {
 	protected <T> T webExecute(String url, Object payload, Class<T> responseClass) throws ResponseException
 	{
+		/*
 		if(url.startsWith("https"))
 			hackSSL();
+		*/
 		final Gson gson = new Gson();
 		final ErrorResponse rex = new ErrorResponse();
 		try
@@ -46,8 +49,11 @@ abstract class WebConnection
 			rex.errorMessage = Integer.toString(responseCode) + ": " + connection.getResponseMessage();
 			if(responseCode == HttpURLConnection.HTTP_OK)
 			{
-				final JsonReader jr = new JsonReader(new InputStreamReader(connection.getInputStream()));
-				return gson.fromJson(jr, responseClass);
+				Scanner s = new Scanner(connection.getInputStream()).useDelimiter("\\A");
+				String result = s.hasNext() ? s.next() : "";
+				// final JsonReader jr = new JsonReader(new InputStreamReader(connection.getInputStream()));
+				// return gson.fromJson(jr, responseClass);
+				return gson.fromJson(result, responseClass);
 			} else {
 				final JsonReader jr = new JsonReader(new InputStreamReader(connection.getErrorStream()));
 				final ErrorResponse info = gson.fromJson(jr, ErrorResponse.class);

@@ -6,7 +6,7 @@ Include this into your ```pom.xml``` to add it as a dependency:
 	<repositories>
 		<repository>
 			<id>methuselah-repo</id>
-			<url>http://maven.methuselah.ru/</url>
+			<url>https://maven.methuselah.ru/</url>
 		</repository>
 		...
 	</repositories>
@@ -15,7 +15,7 @@ Include this into your ```pom.xml``` to add it as a dependency:
 		<dependency>
 			<groupId>ru.methuselah</groupId>
 			<artifactId>authlib</artifactId>
-			<version>0.14a</version>
+			<version>0.16a</version>
 		</dependency>
 		...
 	</dependencies>
